@@ -21,8 +21,6 @@ class UserController extends Controller
 
     /**
      * GET /api/users
-     * Source: user_controller.js — index
-     * Optional ?role= filter (RoleEnum value).
      */
     public function index(Request $request): JsonResponse
     {
@@ -35,7 +33,6 @@ class UserController extends Controller
 
     /**
      * POST /api/users
-     * Source: user_controller.js — create
      */
     public function store(CreateUserRequest $request): JsonResponse
     {
@@ -46,7 +43,6 @@ class UserController extends Controller
 
     /**
      * PUT /api/users/{user}
-     * Source: user_controller.js — update
      */
     public function update(UpdateUserRequest $request, int $user): JsonResponse
     {
@@ -57,7 +53,6 @@ class UserController extends Controller
 
     /**
      * DELETE /api/users/{user}
-     * Source: user_controller.js — destroy
      */
     public function destroy(Request $request, int $user): JsonResponse
     {

@@ -14,11 +14,17 @@ use Illuminate\Http\UploadedFile;
  */
 class CloudinaryService
 {
-    protected Cloudinary $cloudinary;
+    protected ?Cloudinary $cloudinary = null;
 
-    public function __construct()
+    /**
+     * Lazily instantiate the Cloudinary SDK client.
+     * Avoids crashing endpoints that don't perform uploads (e.g. GET /faculties)
+     * when CLOUDINARY_URL is missing/invalid, since Laravel eagerly resolves
+     * all constructor dependencies of any Service that injects this class.
+     */
+    protected function client(): Cloudinary
     {
-        $this->cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
+        return $this->cloudinary ??= new Cloudinary(env('CLOUDINARY_URL'));
     }
 
     /**
@@ -27,7 +33,7 @@ class CloudinaryService
      */
     public function uploadImage(UploadedFile $file, string $folder): string
     {
-        $result = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
+        $result = $this->client()->uploadApi()->upload($file->getRealPath(), [
             'folder'        => "kiluah-lms/{$folder}",
             'resource_type' => 'image',
         ]);
@@ -44,7 +50,7 @@ class CloudinaryService
      */
     public function uploadRaw(UploadedFile $file, string $folder): array
     {
-        $result = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
+        $result = $this->client()->uploadApi()->upload($file->getRealPath(), [
             'folder'          => "kiluah-lms/{$folder}",
             'resource_type'   => 'raw',
             'use_filename'    => true,
@@ -64,6 +70,6 @@ class CloudinaryService
      */
     public function destroy(string $publicId, string $resourceType = 'raw'): void
     {
-        $this->cloudinary->uploadApi()->destroy($publicId, ['resource_type' => $resourceType]);
+        $this->client()->uploadApi()->destroy($publicId, ['resource_type' => $resourceType]);
     }
 }

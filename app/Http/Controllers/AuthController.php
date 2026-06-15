@@ -21,7 +21,6 @@ class AuthController extends Controller
 
     /**
      * POST /api/auth/login
-     * Source: auth_controller.js — login
      */
     public function login(LoginRequest $request): JsonResponse
     {
@@ -38,7 +37,6 @@ class AuthController extends Controller
 
     /**
      * POST /api/auth/logout
-     * Source: auth_controller.js — logout
      */
     public function logout(Request $request): JsonResponse
     {
@@ -49,7 +47,6 @@ class AuthController extends Controller
 
     /**
      * GET /api/auth/me
-     * Source: auth_controller.js — me
      */
     public function me(Request $request): JsonResponse
     {
@@ -60,7 +57,6 @@ class AuthController extends Controller
 
     /**
      * PATCH /api/auth/profile
-     * Source: auth_controller.js — updateProfile
      */
     public function updateProfile(UpdateProfileRequest $request): JsonResponse
     {

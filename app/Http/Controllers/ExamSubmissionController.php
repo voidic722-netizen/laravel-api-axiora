@@ -21,7 +21,6 @@ class ExamSubmissionController extends Controller
 
     /**
      * POST /api/exams/{exam}/submit
-     * Source: ujian_pengumpulan_controller.js — submit
      */
     public function submit(SubmitExamRequest $request, int $exam): JsonResponse
     {
@@ -36,7 +35,6 @@ class ExamSubmissionController extends Controller
 
     /**
      * GET /api/exams/{exam}/my-submission
-     * Source: ujian_pengumpulan_controller.js — getMySubmission
      */
     public function mySubmission(Request $request, int $exam): JsonResponse
     {
@@ -47,7 +45,6 @@ class ExamSubmissionController extends Controller
 
     /**
      * GET /api/exams/{exam}/submissions
-     * Source: ujian_pengumpulan_controller.js — getSubmissions
      */
     public function submissions(Request $request, int $exam): JsonResponse
     {

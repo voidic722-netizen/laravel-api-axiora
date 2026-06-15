@@ -27,8 +27,6 @@ class ExamController extends Controller
 
     /**
      * GET /api/exams
-     * Source: ujian_controller.js — index
-     * Students receive answers stripped (Issue #17).
      */
     public function index(Request $request): JsonResponse
     {
@@ -39,7 +37,6 @@ class ExamController extends Controller
 
     /**
      * GET /api/exams/{exam}
-     * Source: ujian_controller.js — show
      */
     public function show(Request $request, int $exam): JsonResponse
     {
@@ -50,7 +47,6 @@ class ExamController extends Controller
 
     /**
      * POST /api/exams
-     * Source: ujian_controller.js — create
      */
     public function store(StoreExamRequest $request): JsonResponse
     {
@@ -64,7 +60,6 @@ class ExamController extends Controller
 
     /**
      * PUT /api/exams/{exam}
-     * Source: ujian_controller.js — update
      */
     public function update(UpdateExamRequest $request, int $exam): JsonResponse
     {
@@ -79,7 +74,6 @@ class ExamController extends Controller
 
     /**
      * DELETE /api/exams/{exam}
-     * Source: ujian_controller.js — destroy
      */
     public function destroy(int $exam): JsonResponse
     {
@@ -87,10 +81,6 @@ class ExamController extends Controller
 
         return $this->success(null, 'Exam deleted');
     }
-
-    /**
-     * Issue #17: students never receive `isCorrect`.
-     */
     protected function examResource(Exam $exam, Request $request): JsonResource
     {
         return $request->user()->role === RoleEnum::STUDENT

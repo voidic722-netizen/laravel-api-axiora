@@ -20,8 +20,6 @@ class ScheduleController extends Controller
 
     /**
      * GET /api/schedules
-     * Source: jadwal_controller.js — index
-     * Students see only schedules for their own classroom.
      */
     public function index(Request $request): JsonResponse
     {
@@ -32,7 +30,6 @@ class ScheduleController extends Controller
 
     /**
      * POST /api/schedules
-     * Source: jadwal_controller.js — create
      */
     public function store(StoreScheduleRequest $request): JsonResponse
     {
@@ -43,7 +40,6 @@ class ScheduleController extends Controller
 
     /**
      * PUT /api/schedules/{schedule}
-     * Source: jadwal_controller.js — update
      */
     public function update(StoreScheduleRequest $request, int $schedule): JsonResponse
     {
@@ -54,7 +50,6 @@ class ScheduleController extends Controller
 
     /**
      * DELETE /api/schedules/{schedule}
-     * Source: jadwal_controller.js — destroy
      */
     public function destroy(int $schedule): JsonResponse
     {

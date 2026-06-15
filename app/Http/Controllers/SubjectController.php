@@ -19,7 +19,6 @@ class SubjectController extends Controller
 
     /**
      * GET /api/subjects
-     * Source: mata_pelajaran_controller.js — index
      */
     public function index(): JsonResponse
     {
@@ -28,7 +27,6 @@ class SubjectController extends Controller
 
     /**
      * GET /api/subjects/{subject}
-     * Source: mata_pelajaran_controller.js — show
      */
     public function show(int $subject): JsonResponse
     {
@@ -37,7 +35,6 @@ class SubjectController extends Controller
 
     /**
      * POST /api/subjects
-     * Source: mata_pelajaran_controller.js — create
      */
     public function store(StoreSubjectRequest $request): JsonResponse
     {
@@ -48,7 +45,6 @@ class SubjectController extends Controller
 
     /**
      * PUT /api/subjects/{subject}
-     * Source: mata_pelajaran_controller.js — update
      */
     public function update(StoreSubjectRequest $request, int $subject): JsonResponse
     {
@@ -59,7 +55,6 @@ class SubjectController extends Controller
 
     /**
      * DELETE /api/subjects/{subject}
-     * Source: mata_pelajaran_controller.js — destroy
      */
     public function destroy(int $subject): JsonResponse
     {

@@ -20,7 +20,6 @@ class DepartmentController extends Controller
 
     /**
      * GET /api/departments
-     * Source: jurusan_controller.js — index
      */
     public function index(): JsonResponse
     {
@@ -29,7 +28,6 @@ class DepartmentController extends Controller
 
     /**
      * GET /api/departments/{department}
-     * Source: jurusan_controller.js — show
      */
     public function show(int $department): JsonResponse
     {
@@ -38,7 +36,6 @@ class DepartmentController extends Controller
 
     /**
      * POST /api/departments
-     * Source: jurusan_controller.js — create
      */
     public function store(StoreDepartmentRequest $request): JsonResponse
     {
@@ -49,7 +46,6 @@ class DepartmentController extends Controller
 
     /**
      * PUT /api/departments/{department}
-     * Source: jurusan_controller.js — update
      */
     public function update(StoreDepartmentRequest $request, int $department): JsonResponse
     {
@@ -60,7 +56,6 @@ class DepartmentController extends Controller
 
     /**
      * DELETE /api/departments/{department}
-     * Source: jurusan_controller.js — destroy
      */
     public function destroy(int $department): JsonResponse
     {

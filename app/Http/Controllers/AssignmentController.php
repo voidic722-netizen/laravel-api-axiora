@@ -21,8 +21,6 @@ class AssignmentController extends Controller
 
     /**
      * GET /api/assignments
-     * Source: tugas_controller.js — index
-     * Students only see assignments targeting their classroom.
      */
     public function index(Request $request): JsonResponse
     {
@@ -33,7 +31,6 @@ class AssignmentController extends Controller
 
     /**
      * GET /api/assignments/{assignment}
-     * Source: tugas_controller.js — show
      */
     public function show(Request $request, int $assignment): JsonResponse
     {
@@ -44,7 +41,6 @@ class AssignmentController extends Controller
 
     /**
      * POST /api/assignments
-     * Source: tugas_controller.js — create
      */
     public function store(StoreAssignmentRequest $request): JsonResponse
     {
@@ -58,7 +54,6 @@ class AssignmentController extends Controller
 
     /**
      * PUT /api/assignments/{assignment}
-     * Source: tugas_controller.js — update
      */
     public function update(UpdateAssignmentRequest $request, int $assignment): JsonResponse
     {
@@ -73,7 +68,6 @@ class AssignmentController extends Controller
 
     /**
      * DELETE /api/assignments/{assignment}
-     * Source: tugas_controller.js — destroy
      */
     public function destroy(int $assignment): JsonResponse
     {

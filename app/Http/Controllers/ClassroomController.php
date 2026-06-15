@@ -21,7 +21,6 @@ class ClassroomController extends Controller
 
     /**
      * GET /api/classrooms
-     * Source: kelas_controller.js — index
      * Students see only their own classroom.
      */
     public function index(Request $request): JsonResponse
@@ -33,7 +32,6 @@ class ClassroomController extends Controller
 
     /**
      * GET /api/classrooms/{classroom}
-     * Source: kelas_controller.js — show
      */
     public function show(Request $request, int $classroom): JsonResponse
     {
@@ -44,7 +42,6 @@ class ClassroomController extends Controller
 
     /**
      * POST /api/classrooms
-     * Source: kelas_controller.js — create
      */
     public function store(StoreClassroomRequest $request): JsonResponse
     {

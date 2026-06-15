@@ -17,7 +17,6 @@ class AssignmentModuleController extends Controller
 
     /**
      * DELETE /api/assignment-modules/{module}
-     * Source: tugas_controller.js — deleteTugasModul
      */
     public function destroy(int $module): JsonResponse
     {

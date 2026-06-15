@@ -22,7 +22,6 @@ class AssignmentSubmissionController extends Controller
 
     /**
      * POST /api/assignments/{assignment}/submit
-     * Source: tugas_pengumpulan_controller.js — submit
      */
     public function submit(SubmitAssignmentRequest $request, int $assignment): JsonResponse
     {
@@ -37,7 +36,6 @@ class AssignmentSubmissionController extends Controller
 
     /**
      * GET /api/assignments/{assignment}/my-submission
-     * Source: tugas_pengumpulan_controller.js — getMySubmission
      */
     public function mySubmission(Request $request, int $assignment): JsonResponse
     {
@@ -48,7 +46,6 @@ class AssignmentSubmissionController extends Controller
 
     /**
      * GET /api/assignments/{assignment}/submissions
-     * Source: tugas_pengumpulan_controller.js — getSubmissionsByTugas
      */
     public function submissions(Request $request, int $assignment): JsonResponse
     {
@@ -59,7 +56,6 @@ class AssignmentSubmissionController extends Controller
 
     /**
      * POST /api/assignment-submissions/{submission}/grade
-     * Source: tugas_pengumpulan_controller.js — gradeSubmission
      */
     public function grade(GradeSubmissionRequest $request, int $submission): JsonResponse
     {

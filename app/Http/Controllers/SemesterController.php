@@ -19,7 +19,6 @@ class SemesterController extends Controller
 
     /**
      * GET /api/semesters
-     * Source: semester_controller.js — index
      */
     public function index(): JsonResponse
     {
@@ -28,7 +27,6 @@ class SemesterController extends Controller
 
     /**
      * POST /api/semesters
-     * Source: semester_controller.js — create
      */
     public function store(StoreSemesterRequest $request): JsonResponse
     {
@@ -39,7 +37,6 @@ class SemesterController extends Controller
 
     /**
      * PUT /api/semesters/{semester}
-     * Source: semester_controller.js — update
      */
     public function update(StoreSemesterRequest $request, int $semester): JsonResponse
     {
@@ -50,7 +47,6 @@ class SemesterController extends Controller
 
     /**
      * DELETE /api/semesters/{semester}
-     * Source: semester_controller.js — destroy
      */
     public function destroy(int $semester): JsonResponse
     {

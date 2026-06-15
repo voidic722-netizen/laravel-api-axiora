@@ -21,7 +21,6 @@ class FacultyController extends Controller
 
     /**
      * GET /api/faculties
-     * Source: fakultas_controller.js — index
      */
     public function index(): JsonResponse
     {
@@ -30,7 +29,6 @@ class FacultyController extends Controller
 
     /**
      * GET /api/faculties/available-for-dean
-     * Source: fakultas_controller.js — availableForDekan
      */
     public function availableForDean(Request $request): JsonResponse
     {
@@ -45,7 +43,6 @@ class FacultyController extends Controller
 
     /**
      * GET /api/faculties/{faculty}
-     * Source: fakultas_controller.js — show
      */
     public function show(int $faculty): JsonResponse
     {
@@ -54,7 +51,6 @@ class FacultyController extends Controller
 
     /**
      * POST /api/faculties
-     * Source: fakultas_controller.js — create
      */
     public function store(StoreFacultyRequest $request): JsonResponse
     {
@@ -65,7 +61,6 @@ class FacultyController extends Controller
 
     /**
      * PUT /api/faculties/{faculty}
-     * Source: fakultas_controller.js — update
      */
     public function update(StoreFacultyRequest $request, int $faculty): JsonResponse
     {
@@ -76,7 +71,6 @@ class FacultyController extends Controller
 
     /**
      * DELETE /api/faculties/{faculty}
-     * Source: fakultas_controller.js — destroy
      */
     public function destroy(int $faculty): JsonResponse
     {
