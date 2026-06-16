@@ -58,6 +58,18 @@ class ClassroomRepository implements ClassroomRepositoryInterface
         return Classroom::create($data);
     }
 
+    public function update(Classroom $classroom, array $data): Classroom
+    {
+        $classroom->update($data);
+
+        return $classroom->fresh();
+    }
+
+    public function delete(Classroom $classroom): bool
+    {
+        return (bool) $classroom->delete();
+    }
+
     public function assignmentsForClassroom(int $classroomId): Collection
     {
         return Assignment::with(['subject', 'modules'])

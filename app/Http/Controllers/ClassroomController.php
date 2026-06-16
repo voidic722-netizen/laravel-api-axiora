@@ -49,4 +49,24 @@ class ClassroomController extends Controller
 
         return $this->success(ClassroomResource::make($classroom), 'Classroom created', 201);
     }
+
+    /**
+     * PUT /api/classrooms/{classroom}
+     */
+    public function update(StoreClassroomRequest $request, int $classroom): JsonResponse
+    {
+        $updated = $this->classroomService->update($classroom, $request->validated());
+
+        return $this->success(ClassroomResource::make($updated), 'Classroom updated');
+    }
+
+    /**
+     * DELETE /api/classrooms/{classroom}
+     */
+    public function destroy(int $classroom): JsonResponse
+    {
+        $this->classroomService->delete($classroom);
+
+        return $this->success(null, 'Classroom deleted');
+    }
 }

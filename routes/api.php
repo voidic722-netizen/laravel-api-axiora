@@ -112,6 +112,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::post('/classrooms', [ClassroomController::class, 'store']);
+        Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update']);
+        Route::delete('/classrooms/{classroom}', [ClassroomController::class, 'destroy']);
     });
 
     // ---------------------------------------------------------------

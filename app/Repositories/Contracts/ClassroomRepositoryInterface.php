@@ -31,6 +31,10 @@ interface ClassroomRepositoryInterface
 
     public function create(array $data): Classroom;
 
+    public function update(Classroom $classroom, array $data): Classroom;
+
+    public function delete(Classroom $classroom): bool;
+
     /**
      * Assignments whose classroom_ids JSON array contains this classroom id.
      * Source: kelas_repository.js — getKelasDetail (tasks filter, Issue #07 fix)

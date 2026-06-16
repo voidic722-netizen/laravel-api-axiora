@@ -67,4 +67,37 @@ class ClassroomService
 
         return $this->classroomRepository->create($data);
     }
+
+    public function update(int $id, array $data): Classroom
+    {
+        $classroom = $this->classroomRepository->find($id);
+
+        if (!$classroom) {
+            throw new ApiException('Classroom not found', 404);
+        }
+
+        $existing = $this->classroomRepository->findDuplicate(
+            $data['name'],
+            $data['department_id'],
+            $data['semester_id'],
+            $data['subject_id'],
+        );
+
+        if ($existing && $existing->id !== $classroom->id) {
+            throw new ApiException('Classroom already exists', 409);
+        }
+
+        return $this->classroomRepository->update($classroom, $data);
+    }
+
+    public function delete(int $id): void
+    {
+        $classroom = $this->classroomRepository->find($id);
+
+        if (!$classroom) {
+            throw new ApiException('Classroom not found', 404);
+        }
+
+        $this->classroomRepository->delete($classroom);
+    }
 }
