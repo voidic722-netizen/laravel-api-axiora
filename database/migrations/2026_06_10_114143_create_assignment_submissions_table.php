@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('assignment_id')->constrained('assignments')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users');
-            $table->json('files')->default('[]');
+            $table->json('files');
             $table->string('status')->default('submitted');
             $table->timestampTz('submitted_at');
             $table->integer('grade')->nullable();

@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('exam_id')->constrained('exams')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users');
-            $table->json('answers')->default('{}');
+            $table->json('answers');
             $table->integer('score')->default(0);
             $table->integer('correct_count')->default(0);
             $table->integer('total_questions')->default(0);
