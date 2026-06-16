@@ -34,7 +34,7 @@ class CloudinaryService
     public function uploadImage(UploadedFile $file, string $folder): string
     {
         $result = $this->client()->uploadApi()->upload($file->getRealPath(), [
-            'folder'        => "kiluah-lms/{$folder}",
+            'folder'        => "axiora-lms/{$folder}",
             'resource_type' => 'image',
         ]);
 
@@ -51,7 +51,7 @@ class CloudinaryService
     public function uploadRaw(UploadedFile $file, string $folder): array
     {
         $result = $this->client()->uploadApi()->upload($file->getRealPath(), [
-            'folder'          => "kiluah-lms/{$folder}",
+            'folder'          => "axiora-lms/{$folder}",
             'resource_type'   => 'raw',
             'use_filename'    => true,
             'unique_filename' => true,

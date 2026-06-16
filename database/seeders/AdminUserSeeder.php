@@ -14,7 +14,7 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        $email = env('ADMIN_EMAIL', 'admin@kiluah.test');
+        $email = env('ADMIN_EMAIL', 'admin@axiora.com');
         $password = env('ADMIN_PASS', 'password');
 
         if (User::where('email', $email)->exists()) {
