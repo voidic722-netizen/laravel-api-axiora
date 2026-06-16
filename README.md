@@ -1,58 +1,247 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Axiora - Academic Management REST API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+REST API untuk manajemen akademik berbasis Laravel 13 dengan sistem role-based access control (Admin, Lecturer, Student).
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Autentikasi** — Login/logout menggunakan Laravel Sanctum (Bearer token)
+- **Manajemen Fakultas & Departemen** — CRUD dengan relasi berjenjang
+- **Manajemen Semester & Mata Kuliah** — Data akademik dasar
+- **Manajemen Kelas** — CRUD kelas
+- **Manajemen Jadwal** — Penjadwalan perkuliahan
+- **Manajemen Tugas (Assignment)** — Buat, kumpulkan, dan nilai tugas dengan unggahan file via Cloudinary
+- **Manajemen Ujian (Exam)** — Buat, kumpulkan, dan nilai ujian
+- **Role-based Access** — Tiga role: `admin`, `lecturer`, `student`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Teknologi | Versi |
+|-----------|-------|
+| PHP | ^8.4 |
+| Laravel | ^13.8 |
+| PostgreSQL | - |
+| Sanctum | ^4.0 |
+| Cloudinary PHP SDK | ^3.1 |
+| Pest | ^4.7 |
+| Scribe (API docs) | ^5.11 |
 
-## Learning Laravel
+## Arsitektur
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Repository Pattern** — Pemisahan logika akses data via interface dan repository
+- **Service Layer** — Logika bisnis dipisahkan ke service class
+- **ApiResponse Trait** — Response JSON konsisten (`success`, `message`, `data`, `errors`, `meta`)
+- **Role Middleware** — Middleware kustom `role:admin,lecturer` untuk otorisasi
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Struktur Database
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Migrasi tersedia untuk tabel-tabel berikut:
 
-## Agentic Development
+- `faculties` — Fakultas
+- `departments` — Departemen (berelasi ke fakultas)
+- `semesters` — Semester
+- `subjects` — Mata kuliah
+- `classrooms` — Kelas
+- `users` — User dengan role, relasi ke fakultas/departemen/kelas/mata kuliah
+- `schedules` — Jadwal perkuliahan
+- `assignments` / `assignment_modules` / `assignment_submissions` — Tugas dan pengumpulan
+- `exams` / `exam_submissions` — Ujian dan pengumpulan
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## API Endpoints
+
+Semua endpoint (kecuali login) membutuhkan header `Authorization: Bearer {token}`.
+
+### Public
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| POST | `/api/auth/login` | Login user |
+
+### Auth
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| POST | `/api/auth/logout` | Logout |
+| GET | `/api/auth/me` | Profile user saat ini |
+| PATCH | `/api/auth/profile` | Update profile |
+
+### Users (Admin)
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/users` | List users (admin/lecturer) |
+| POST | `/api/users` | Create user |
+| PUT | `/api/users/{user}` | Update user |
+| DELETE | `/api/users/{user}` | Delete user |
+
+### Faculties
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/faculties` | List faculties |
+| GET | `/api/faculties/available-for-dean` | Faculties tanpa dean |
+| GET | `/api/faculties/{faculty}` | Detail faculty |
+| POST | `/api/faculties` | Create faculty (admin) |
+| PUT | `/api/faculties/{faculty}` | Update faculty (admin) |
+| DELETE | `/api/faculties/{faculty}` | Delete faculty (admin) |
+
+### Departments
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/departments` | List departments |
+| GET | `/api/departments/{department}` | Detail department |
+| POST | `/api/departments` | Create department (admin) |
+| PUT | `/api/departments/{department}` | Update department (admin) |
+| DELETE | `/api/departments/{department}` | Delete department (admin) |
+
+### Semesters
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/semesters` | List semesters |
+| POST | `/api/semesters` | Create semester (admin) |
+| PUT | `/api/semesters/{semester}` | Update semester (admin) |
+| DELETE | `/api/semesters/{semester}` | Delete semester (admin) |
+
+### Subjects
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/subjects` | List subjects |
+| GET | `/api/subjects/{subject}` | Detail subject |
+| POST | `/api/subjects` | Create subject (admin) |
+| PUT | `/api/subjects/{subject}` | Update subject (admin) |
+| DELETE | `/api/subjects/{subject}` | Delete subject (admin) |
+
+### Classrooms
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/classrooms` | List classrooms |
+| GET | `/api/classrooms/{classroom}` | Detail classroom |
+| POST | `/api/classrooms` | Create classroom (admin) |
+| PUT | `/api/classrooms/{classroom}` | Update classroom (admin) |
+| DELETE | `/api/classrooms/{classroom}` | Delete classroom (admin) |
+
+### Schedules
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/schedules` | List schedules |
+| POST | `/api/schedules` | Create schedule (admin/lecturer) |
+| PUT | `/api/schedules/{schedule}` | Update schedule (admin/lecturer) |
+| DELETE | `/api/schedules/{schedule}` | Delete schedule (admin/lecturer) |
+
+### Assignments
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/assignments` | List assignments |
+| GET | `/api/assignments/{assignment}` | Detail assignment |
+| POST | `/api/assignments` | Create assignment (admin/lecturer) |
+| PUT | `/api/assignments/{assignment}` | Update assignment (admin/lecturer) |
+| DELETE | `/api/assignments/{assignment}` | Delete assignment (admin/lecturer) |
+| DELETE | `/api/assignment-modules/{module}` | Delete module file (admin/lecturer) |
+| GET | `/api/assignments/{assignment}/submissions` | Lihat submissions (admin/lecturer) |
+| POST | `/api/assignment-submissions/{submission}/grade` | Beri nilai (admin/lecturer) |
+| POST | `/api/assignments/{assignment}/submit` | Kumpulkan tugas (student) |
+| GET | `/api/assignments/{assignment}/my-submission` | Lihat submission sendiri (student) |
+
+### Exams
+
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| GET | `/api/exams` | List exams |
+| GET | `/api/exams/{exam}` | Detail exam |
+| POST | `/api/exams` | Create exam (admin/lecturer) |
+| PUT | `/api/exams/{exam}` | Update exam (admin/lecturer) |
+| DELETE | `/api/exams/{exam}` | Delete exam (admin/lecturer) |
+| GET | `/api/exams/{exam}/submissions` | Lihat submissions (admin/lecturer) |
+| POST | `/api/exams/{exam}/submit` | Kumpulkan ujian (student) |
+| GET | `/api/exams/{exam}/my-submission` | Lihat submission sendiri (student) |
+
+## Instalasi
 
 ```bash
-composer require laravel/boost --dev
+# Clone repositori
+git clone <repo-url>
+cd laravel-api-axiora-master
 
-php artisan boost:install
+# Install dependensi PHP
+composer install
+
+# Copy environment
+cp .env.example .env
+# Edit .env sesuai konfigurasi database PostgreSQL dan Cloudinary
+
+# Generate key
+php artisan key:generate
+
+# Jalankan migrasi
+php artisan migrate
+
+# (Opsional) Generate API docs
+php artisan scribe:generate
+
+# Jalankan development server
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Atau gunakan script `setup`:
 
-## Contributing
+```bash
+composer setup
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Menjalankan Dev Server
 
-## Code of Conduct
+```bash
+composer dev
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Perintah di atas menjalankan secara bersamaan:
+- `php artisan serve`
+- `php artisan queue:listen`
+- `php artisan pail` (log viewer)
+- `npm run dev` (Vite)
 
-## Security Vulnerabilities
+## Testing
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer test
+```
 
-## License
+## Format Response
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Semua response mengikuti format standar:
+
+```json
+{
+  "success": true,
+  "message": "",
+  "data": {}
+}
+```
+
+Untuk error:
+```json
+{
+  "success": false,
+  "message": "Error message",
+  "errors": {}
+}
+```
+
+Untuk pagination, ditambahkan key `meta`:
+```json
+{
+  "success": true,
+  "message": "",
+  "data": [],
+  "meta": {
+    "current_page": 1,
+    "per_page": 15,
+    "total": 100
+  }
+}
+```
