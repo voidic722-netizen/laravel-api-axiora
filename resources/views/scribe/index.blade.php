@@ -242,7 +242,7 @@ Students see only their own classroom.</a>
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 15, 2026</li>
+        <li>Last updated: June 16, 2026</li>
     </ul>
 </div>
 
@@ -595,7 +595,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-auth-me">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -607,28 +607,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;message&quot;: &quot;&quot;,
-    &quot;data&quot;: {
-        &quot;id&quot;: 1,
-        &quot;name&quot;: &quot;Admin&quot;,
-        &quot;email&quot;: &quot;admin@kiluah.test&quot;,
-        &quot;image&quot;: null,
-        &quot;role&quot;: 1,
-        &quot;position&quot;: null,
-        &quot;nidn&quot;: null,
-        &quot;nim&quot;: null,
-        &quot;subject_id&quot;: null,
-        &quot;department_id&quot;: null,
-        &quot;faculty_id&quot;: null,
-        &quot;classroom_id&quot;: null,
-        &quot;subject&quot;: null,
-        &quot;department&quot;: null,
-        &quot;faculty&quot;: null,
-        &quot;classroom&quot;: null,
-        &quot;created_at&quot;: &quot;2026-06-13T07:07:20.000000Z&quot;,
-        &quot;updated_at&quot;: &quot;2026-06-13T07:07:20.000000Z&quot;
-    }
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -919,7 +900,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-users">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -931,7 +912,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -1049,7 +1032,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "department_id=16"\
     --form "faculty_id=16"\
     --form "classroom_id=16"\
-    --form "image=@/tmp/phpvngno3b19qg61V7MPz0" </code></pre></div>
+    --form "image=@/tmp/phpcq7b7o851epbabjxc70" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -1315,7 +1298,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpvngno3b19qg61V7MPz0</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpcq7b7o851epbabjxc70</code></p>
         </div>
         </form>
 
@@ -1333,14 +1316,14 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/users/1" \
+    "http://localhost:8000/api/users/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
     --form "name=b"\
     --form "email=zbailey@example.net"\
     --form "password=-0pBNvYgxw"\
-    --form "role=3"\
+    --form "role=1"\
     --form "position=architecto"\
     --form "nidn=architecto"\
     --form "nim=architecto"\
@@ -1348,12 +1331,12 @@ Must be one of:
     --form "department_id=16"\
     --form "faculty_id=16"\
     --form "classroom_id=16"\
-    --form "image=@/tmp/phpdbite7ie56q9es51rMB" </code></pre></div>
+    --form "image=@/tmp/php13i7lco26vl49kWB8cE" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/1"
+    "http://localhost:8000/api/users/architecto"
 );
 
 const headers = {
@@ -1366,7 +1349,7 @@ const body = new FormData();
 body.append('name', 'b');
 body.append('email', 'zbailey@example.net');
 body.append('password', '-0pBNvYgxw');
-body.append('role', '3');
+body.append('role', '1');
 body.append('position', 'architecto');
 body.append('nidn', 'architecto');
 body.append('nim', 'architecto');
@@ -1472,15 +1455,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="PUTapi-users--user-"
-               value="1"
+                <input type="text" style="display: none"
+                              name="user"                data-endpoint="PUTapi-users--user-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The user. Example: <code>1</code></p>
+<p>The user. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1526,10 +1509,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="role"                data-endpoint="PUTapi-users--user-"
-               value="3"
+               value="1"
                data-component="body">
     <br>
-<p>Example: <code>3</code></p>
+<p>Example: <code>1</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>1</code></li> <li><code>2</code></li> <li><code>3</code></li></ul>
         </div>
@@ -1627,7 +1610,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpdbite7ie56q9es51rMB</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php13i7lco26vl49kWB8cE</code></p>
         </div>
         </form>
 
@@ -1645,7 +1628,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/users/1" \
+    "http://localhost:8000/api/users/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1653,7 +1636,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/1"
+    "http://localhost:8000/api/users/architecto"
 );
 
 const headers = {
@@ -1758,15 +1741,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>user</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="user"                data-endpoint="DELETEapi-users--user-"
-               value="1"
+                <input type="text" style="display: none"
+                              name="user"                data-endpoint="DELETEapi-users--user-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The user. Example: <code>1</code></p>
+<p>The user. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -1811,7 +1794,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-faculties-available-for-dean">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1823,7 +1806,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -1953,7 +1938,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-faculties">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -1965,7 +1950,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -2068,7 +2055,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/faculties/16" \
+    --get "http://localhost:8000/api/faculties/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2076,7 +2063,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/faculties/16"
+    "http://localhost:8000/api/faculties/architecto"
 );
 
 const headers = {
@@ -2095,7 +2082,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-faculties--faculty-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2107,7 +2094,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -2197,15 +2186,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>faculty</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="faculty"                data-endpoint="GETapi-faculties--faculty-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="faculty"                data-endpoint="GETapi-faculties--faculty-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The faculty. Example: <code>16</code></p>
+<p>The faculty. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -2229,7 +2218,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --form "name=b"\
     --form "description=Eius et animi quos velit et."\
-    --form "thumbnail=@/tmp/php712kl4cb0srj6FiWvlz" </code></pre></div>
+    --form "thumbnail=@/tmp/phpcqv3e08pkl9p8vcFhzl" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -2376,7 +2365,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php712kl4cb0srj6FiWvlz</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpcqv3e08pkl9p8vcFhzl</code></p>
         </div>
         </form>
 
@@ -2394,18 +2383,18 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/faculties/16" \
+    "http://localhost:8000/api/faculties/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
     --form "name=b"\
     --form "description=Eius et animi quos velit et."\
-    --form "thumbnail=@/tmp/php5e7r3m9h8jav5Luqvsc" </code></pre></div>
+    --form "thumbnail=@/tmp/phpnhl15m1sd5uu0yGRbFu" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/faculties/16"
+    "http://localhost:8000/api/faculties/architecto"
 );
 
 const headers = {
@@ -2515,15 +2504,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>faculty</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="faculty"                data-endpoint="PUTapi-faculties--faculty-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="faculty"                data-endpoint="PUTapi-faculties--faculty-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The faculty. Example: <code>16</code></p>
+<p>The faculty. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -2560,7 +2549,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php5e7r3m9h8jav5Luqvsc</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpnhl15m1sd5uu0yGRbFu</code></p>
         </div>
         </form>
 
@@ -2578,7 +2567,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/faculties/16" \
+    "http://localhost:8000/api/faculties/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2586,7 +2575,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/faculties/16"
+    "http://localhost:8000/api/faculties/architecto"
 );
 
 const headers = {
@@ -2691,15 +2680,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>faculty</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="faculty"                data-endpoint="DELETEapi-faculties--faculty-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="faculty"                data-endpoint="DELETEapi-faculties--faculty-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The faculty. Example: <code>16</code></p>
+<p>The faculty. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -2744,7 +2733,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-departments">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2756,7 +2745,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -2859,7 +2850,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/departments/16" \
+    --get "http://localhost:8000/api/departments/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2867,7 +2858,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/departments/16"
+    "http://localhost:8000/api/departments/architecto"
 );
 
 const headers = {
@@ -2886,7 +2877,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-departments--department-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -2898,7 +2889,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -2988,15 +2981,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>department</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="department"                data-endpoint="GETapi-departments--department-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="department"                data-endpoint="GETapi-departments--department-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The department. Example: <code>16</code></p>
+<p>The department. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -3021,7 +3014,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "name=b"\
     --form "description=Eius et animi quos velit et."\
     --form "faculty_id=16"\
-    --form "thumbnail=@/tmp/php9mvqf14te6d5bgbCH29" </code></pre></div>
+    --form "thumbnail=@/tmp/phpgml22jhojv924G3NJjq" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -3181,7 +3174,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php9mvqf14te6d5bgbCH29</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpgml22jhojv924G3NJjq</code></p>
         </div>
         </form>
 
@@ -3199,19 +3192,19 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/departments/16" \
+    "http://localhost:8000/api/departments/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
     --form "name=b"\
     --form "description=Eius et animi quos velit et."\
     --form "faculty_id=16"\
-    --form "thumbnail=@/tmp/phpsanp31o0uui2cuAGRsu" </code></pre></div>
+    --form "thumbnail=@/tmp/phped524rjrr3u2ejgkgKO" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/departments/16"
+    "http://localhost:8000/api/departments/architecto"
 );
 
 const headers = {
@@ -3322,15 +3315,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>department</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="department"                data-endpoint="PUTapi-departments--department-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="department"                data-endpoint="PUTapi-departments--department-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The department. Example: <code>16</code></p>
+<p>The department. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -3379,7 +3372,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpsanp31o0uui2cuAGRsu</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phped524rjrr3u2ejgkgKO</code></p>
         </div>
         </form>
 
@@ -3397,7 +3390,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/departments/16" \
+    "http://localhost:8000/api/departments/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3405,7 +3398,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/departments/16"
+    "http://localhost:8000/api/departments/architecto"
 );
 
 const headers = {
@@ -3510,15 +3503,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>department</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="department"                data-endpoint="DELETEapi-departments--department-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="department"                data-endpoint="DELETEapi-departments--department-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The department. Example: <code>16</code></p>
+<p>The department. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -3563,7 +3556,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-semesters">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -3575,9 +3568,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;message&quot;: &quot;&quot;,
-    &quot;data&quot;: []
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -3687,8 +3680,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"name\": \"b\",
     \"academic_year\": \"n\",
-    \"start_date\": \"2026-06-15T09:35:52\",
-    \"end_date\": \"2052-07-08\"
+    \"start_date\": \"2026-06-16T04:20:29\",
+    \"end_date\": \"2052-07-09\"
 }"
 </code></pre></div>
 
@@ -3707,8 +3700,8 @@ const headers = {
 let body = {
     "name": "b",
     "academic_year": "n",
-    "start_date": "2026-06-15T09:35:52",
-    "end_date": "2052-07-08"
+    "start_date": "2026-06-16T04:20:29",
+    "end_date": "2052-07-09"
 };
 
 fetch(url, {
@@ -3836,10 +3829,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="start_date"                data-endpoint="POSTapi-semesters"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:29"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:29</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
@@ -3848,10 +3841,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="end_date"                data-endpoint="POSTapi-semesters"
-               value="2052-07-08"
+               value="2052-07-09"
                data-component="body">
     <br>
-<p>Must be a valid date. Must be a date after or equal to <code>start_date</code>. Example: <code>2052-07-08</code></p>
+<p>Must be a valid date. Must be a date after or equal to <code>start_date</code>. Example: <code>2052-07-09</code></p>
         </div>
         </form>
 
@@ -3869,22 +3862,22 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/semesters/16" \
+    "http://localhost:8000/api/semesters/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
     \"name\": \"b\",
     \"academic_year\": \"n\",
-    \"start_date\": \"2026-06-15T09:35:52\",
-    \"end_date\": \"2052-07-08\"
+    \"start_date\": \"2026-06-16T04:20:29\",
+    \"end_date\": \"2052-07-09\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/semesters/16"
+    "http://localhost:8000/api/semesters/architecto"
 );
 
 const headers = {
@@ -3896,8 +3889,8 @@ const headers = {
 let body = {
     "name": "b",
     "academic_year": "n",
-    "start_date": "2026-06-15T09:35:52",
-    "end_date": "2052-07-08"
+    "start_date": "2026-06-16T04:20:29",
+    "end_date": "2052-07-09"
 };
 
 fetch(url, {
@@ -3996,15 +3989,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>semester</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="semester"                data-endpoint="PUTapi-semesters--semester-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="semester"                data-endpoint="PUTapi-semesters--semester-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The semester. Example: <code>16</code></p>
+<p>The semester. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -4038,10 +4031,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="start_date"                data-endpoint="PUTapi-semesters--semester-"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:29"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:29</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>end_date</code></b>&nbsp;&nbsp;
@@ -4050,10 +4043,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="end_date"                data-endpoint="PUTapi-semesters--semester-"
-               value="2052-07-08"
+               value="2052-07-09"
                data-component="body">
     <br>
-<p>Must be a valid date. Must be a date after or equal to <code>start_date</code>. Example: <code>2052-07-08</code></p>
+<p>Must be a valid date. Must be a date after or equal to <code>start_date</code>. Example: <code>2052-07-09</code></p>
         </div>
         </form>
 
@@ -4071,7 +4064,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/semesters/16" \
+    "http://localhost:8000/api/semesters/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4079,7 +4072,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/semesters/16"
+    "http://localhost:8000/api/semesters/architecto"
 );
 
 const headers = {
@@ -4184,15 +4177,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>semester</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="semester"                data-endpoint="DELETEapi-semesters--semester-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="semester"                data-endpoint="DELETEapi-semesters--semester-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The semester. Example: <code>16</code></p>
+<p>The semester. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -4237,7 +4230,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-subjects">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -4249,7 +4242,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -4352,7 +4347,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/subjects/16" \
+    --get "http://localhost:8000/api/subjects/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4360,7 +4355,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/subjects/16"
+    "http://localhost:8000/api/subjects/architecto"
 );
 
 const headers = {
@@ -4379,7 +4374,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-subjects--subject-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -4391,7 +4386,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -4481,15 +4478,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>subject</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="subject"                data-endpoint="GETapi-subjects--subject-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="subject"                data-endpoint="GETapi-subjects--subject-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The subject. Example: <code>16</code></p>
+<p>The subject. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -4515,7 +4512,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "type=compulsory"\
     --form "department_id=16"\
     --form "description=Eius et animi quos velit et."\
-    --form "thumbnail=@/tmp/phpdu30i7mlpmko53UyzJj" </code></pre></div>
+    --form "thumbnail=@/tmp/php9k3nhn8p7pdrdLiY4Gc" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -4690,7 +4687,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpdu30i7mlpmko53UyzJj</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php9k3nhn8p7pdrdLiY4Gc</code></p>
         </div>
         </form>
 
@@ -4708,20 +4705,20 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/subjects/16" \
+    "http://localhost:8000/api/subjects/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
     --form "name=b"\
-    --form "type=general"\
+    --form "type=compulsory"\
     --form "department_id=16"\
     --form "description=Eius et animi quos velit et."\
-    --form "thumbnail=@/tmp/phpk4919nv5k1vi4zSff4p" </code></pre></div>
+    --form "thumbnail=@/tmp/php8o968jt1sm07ekXSSZ1" </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/subjects/16"
+    "http://localhost:8000/api/subjects/architecto"
 );
 
 const headers = {
@@ -4732,7 +4729,7 @@ const headers = {
 
 const body = new FormData();
 body.append('name', 'b');
-body.append('type', 'general');
+body.append('type', 'compulsory');
 body.append('department_id', '16');
 body.append('description', 'Eius et animi quos velit et.');
 body.append('thumbnail', document.querySelector('input[name="thumbnail"]').files[0]);
@@ -4833,15 +4830,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>subject</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="subject"                data-endpoint="PUTapi-subjects--subject-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="subject"                data-endpoint="PUTapi-subjects--subject-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The subject. Example: <code>16</code></p>
+<p>The subject. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -4863,10 +4860,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="PUTapi-subjects--subject-"
-               value="general"
+               value="compulsory"
                data-component="body">
     <br>
-<p>Example: <code>general</code></p>
+<p>Example: <code>compulsory</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>general</code></li> <li><code>compulsory</code></li></ul>
         </div>
@@ -4904,7 +4901,7 @@ Must be one of:
                value=""
                data-component="body">
     <br>
-<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/phpk4919nv5k1vi4zSff4p</code></p>
+<p>Must be an image. Must not be greater than 2048 kilobytes. Example: <code>/tmp/php8o968jt1sm07ekXSSZ1</code></p>
         </div>
         </form>
 
@@ -4922,7 +4919,7 @@ Must be one of:
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/subjects/16" \
+    "http://localhost:8000/api/subjects/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4930,7 +4927,7 @@ Must be one of:
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/subjects/16"
+    "http://localhost:8000/api/subjects/architecto"
 );
 
 const headers = {
@@ -5035,15 +5032,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>subject</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="subject"                data-endpoint="DELETEapi-subjects--subject-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="subject"                data-endpoint="DELETEapi-subjects--subject-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The subject. Example: <code>16</code></p>
+<p>The subject. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -5089,7 +5086,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-classrooms">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5101,9 +5098,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;message&quot;: &quot;&quot;,
-    &quot;data&quot;: []
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -5206,7 +5203,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost:8000/api/classrooms/16" \
+    --get "http://localhost:8000/api/classrooms/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5214,7 +5211,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/classrooms/16"
+    "http://localhost:8000/api/classrooms/architecto"
 );
 
 const headers = {
@@ -5233,7 +5230,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-classrooms--classroom-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5246,7 +5243,7 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Classroom not found&quot;,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
     &quot;errors&quot;: {}
 }</code>
  </pre>
@@ -5337,15 +5334,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>classroom</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="classroom"                data-endpoint="GETapi-classrooms--classroom-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="classroom"                data-endpoint="GETapi-classrooms--classroom-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The classroom. Example: <code>16</code></p>
+<p>The classroom. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -5579,7 +5576,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-schedules">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5591,9 +5588,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: true,
-    &quot;message&quot;: &quot;&quot;,
-    &quot;data&quot;: []
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -5701,7 +5698,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"date\": \"2026-06-15T09:35:52\",
+    \"date\": \"2026-06-16T04:20:31\",
     \"classroom_id\": 16,
     \"topic\": \"architecto\"
 }"
@@ -5720,7 +5717,7 @@ const headers = {
 };
 
 let body = {
-    "date": "2026-06-15T09:35:52",
+    "date": "2026-06-16T04:20:31",
     "classroom_id": 16,
     "topic": "architecto"
 };
@@ -5826,10 +5823,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="date"                data-endpoint="POSTapi-schedules"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:31"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:31</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>classroom_id</code></b>&nbsp;&nbsp;
@@ -5871,12 +5868,12 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost:8000/api/schedules/16" \
+    "http://localhost:8000/api/schedules/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"date\": \"2026-06-15T09:35:52\",
+    \"date\": \"2026-06-16T04:20:31\",
     \"classroom_id\": 16,
     \"topic\": \"architecto\"
 }"
@@ -5885,7 +5882,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/schedules/16"
+    "http://localhost:8000/api/schedules/architecto"
 );
 
 const headers = {
@@ -5895,7 +5892,7 @@ const headers = {
 };
 
 let body = {
-    "date": "2026-06-15T09:35:52",
+    "date": "2026-06-16T04:20:31",
     "classroom_id": 16,
     "topic": "architecto"
 };
@@ -5996,15 +5993,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>schedule</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="schedule"                data-endpoint="PUTapi-schedules--schedule-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="schedule"                data-endpoint="PUTapi-schedules--schedule-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The schedule. Example: <code>16</code></p>
+<p>The schedule. Example: <code>architecto</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -6014,10 +6011,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="date"                data-endpoint="PUTapi-schedules--schedule-"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:31"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:31</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>classroom_id</code></b>&nbsp;&nbsp;
@@ -6059,7 +6056,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost:8000/api/schedules/16" \
+    "http://localhost:8000/api/schedules/architecto" \
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6067,7 +6064,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/schedules/16"
+    "http://localhost:8000/api/schedules/architecto"
 );
 
 const headers = {
@@ -6172,15 +6169,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
                         <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>schedule</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
+<small>string</small>&nbsp;
  &nbsp;
  &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="schedule"                data-endpoint="DELETEapi-schedules--schedule-"
-               value="16"
+                <input type="text" style="display: none"
+                              name="schedule"                data-endpoint="DELETEapi-schedules--schedule-"
+               value="architecto"
                data-component="url">
     <br>
-<p>The schedule. Example: <code>16</code></p>
+<p>The schedule. Example: <code>architecto</code></p>
             </div>
                     </form>
 
@@ -6225,7 +6222,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-assignments">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -6237,7 +6234,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -6367,7 +6366,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-assignments--assignment-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -6379,7 +6378,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -6502,10 +6503,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "title=b"\
     --form "description=Eius et animi quos velit et."\
     --form "classroom_ids[]=16"\
-    --form "due_date=2026-06-15T09:35:52"\
+    --form "due_date=2026-06-16T04:20:32"\
     --form "max_file_size=22"\
     --form "subject_id=16"\
-    --form "modules[]=@/tmp/phpgosh1pjfvmd13eYeiDR" </code></pre></div>
+    --form "modules[]=@/tmp/php754pf1a00t267Y5rvJr" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -6523,7 +6524,7 @@ const body = new FormData();
 body.append('title', 'b');
 body.append('description', 'Eius et animi quos velit et.');
 body.append('classroom_ids[]', '16');
-body.append('due_date', '2026-06-15T09:35:52');
+body.append('due_date', '2026-06-16T04:20:32');
 body.append('max_file_size', '22');
 body.append('subject_id', '16');
 body.append('modules[]', document.querySelector('input[name="modules[]"]').files[0]);
@@ -6679,10 +6680,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="POSTapi-assignments"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:32"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:32</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>max_file_size</code></b>&nbsp;&nbsp;
@@ -6745,10 +6746,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --form "title=b"\
     --form "description=Eius et animi quos velit et."\
     --form "classroom_ids[]=16"\
-    --form "due_date=2026-06-15T09:35:52"\
+    --form "due_date=2026-06-16T04:20:32"\
     --form "max_file_size=22"\
     --form "subject_id=16"\
-    --form "modules[]=@/tmp/phpdut56osl7efj4B43GGg" </code></pre></div>
+    --form "modules[]=@/tmp/php2vgc92p80iss5oOePys" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -6766,7 +6767,7 @@ const body = new FormData();
 body.append('title', 'b');
 body.append('description', 'Eius et animi quos velit et.');
 body.append('classroom_ids[]', '16');
-body.append('due_date', '2026-06-15T09:35:52');
+body.append('due_date', '2026-06-16T04:20:32');
 body.append('max_file_size', '22');
 body.append('subject_id', '16');
 body.append('modules[]', document.querySelector('input[name="modules[]"]').files[0]);
@@ -6935,10 +6936,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="due_date"                data-endpoint="PUTapi-assignments--assignment-"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:32"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:32</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>max_file_size</code></b>&nbsp;&nbsp;
@@ -7299,7 +7300,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-assignments--assignment--submissions">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -7311,7 +7312,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -7605,7 +7608,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Authorization: Bearer {ADMIN_TOKEN}" \
     --header "Content-Type: multipart/form-data" \
     --header "Accept: application/json" \
-    --form "files[]=@/tmp/phpj68pmsfmdvnl3mMnsUA" </code></pre></div>
+    --form "files[]=@/tmp/phpqll07141plvh7iiX6er" </code></pre></div>
 
 
 <div class="javascript-example">
@@ -7786,7 +7789,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-assignments--assignment--my-submission">
             <blockquote>
-            <p>Example response (403):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -7799,7 +7802,7 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Forbidden&quot;,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
     &quot;errors&quot;: {}
 }</code>
  </pre>
@@ -7943,7 +7946,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-exams">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -7955,7 +7958,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -8085,7 +8090,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-exams--exam-">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -8097,7 +8102,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -8224,8 +8231,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"classroom_ids\": [
         16
     ],
-    \"available_at\": \"2026-06-15T09:35:52\",
-    \"deadline_at\": \"2026-06-15T09:35:52\",
+    \"available_at\": \"2026-06-16T04:20:34\",
+    \"deadline_at\": \"2026-06-16T04:20:34\",
     \"duration_minutes\": 22,
     \"questions\": [
         {
@@ -8255,8 +8262,8 @@ let body = {
     "classroom_ids": [
         16
     ],
-    "available_at": "2026-06-15T09:35:52",
-    "deadline_at": "2026-06-15T09:35:52",
+    "available_at": "2026-06-16T04:20:34",
+    "deadline_at": "2026-06-16T04:20:34",
     "duration_minutes": 22,
     "questions": [
         {
@@ -8417,10 +8424,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="available_at"                data-endpoint="POSTapi-exams"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:34"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:34</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>deadline_at</code></b>&nbsp;&nbsp;
@@ -8429,10 +8436,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="deadline_at"                data-endpoint="POSTapi-exams"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:34"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:34</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>duration_minutes</code></b>&nbsp;&nbsp;
@@ -8509,8 +8516,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"classroom_ids\": [
         16
     ],
-    \"available_at\": \"2026-06-15T09:35:52\",
-    \"deadline_at\": \"2026-06-15T09:35:52\",
+    \"available_at\": \"2026-06-16T04:20:34\",
+    \"deadline_at\": \"2026-06-16T04:20:34\",
     \"duration_minutes\": 22,
     \"questions\": [
         {
@@ -8540,8 +8547,8 @@ let body = {
     "classroom_ids": [
         16
     ],
-    "available_at": "2026-06-15T09:35:52",
-    "deadline_at": "2026-06-15T09:35:52",
+    "available_at": "2026-06-16T04:20:34",
+    "deadline_at": "2026-06-16T04:20:34",
     "duration_minutes": 22,
     "questions": [
         {
@@ -8715,10 +8722,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="available_at"                data-endpoint="PUTapi-exams--exam-"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:34"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:34</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>deadline_at</code></b>&nbsp;&nbsp;
@@ -8727,10 +8734,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="deadline_at"                data-endpoint="PUTapi-exams--exam-"
-               value="2026-06-15T09:35:52"
+               value="2026-06-16T04:20:34"
                data-component="body">
     <br>
-<p>Must be a valid date. Example: <code>2026-06-15T09:35:52</code></p>
+<p>Must be a valid date. Example: <code>2026-06-16T04:20:34</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>duration_minutes</code></b>&nbsp;&nbsp;
@@ -8962,7 +8969,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-exams--exam--submissions">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -8974,7 +8981,9 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Server Error&quot;
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
+    &quot;errors&quot;: {}
 }</code>
  </pre>
     </span>
@@ -9277,7 +9286,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-exams--exam--my-submission">
             <blockquote>
-            <p>Example response (403):</p>
+            <p>Example response (401):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -9290,7 +9299,7 @@ access-control-allow-origin: *
 
 <code class="language-json" style="max-height: 300px;">{
     &quot;success&quot;: false,
-    &quot;message&quot;: &quot;Forbidden&quot;,
+    &quot;message&quot;: &quot;Unauthenticated&quot;,
     &quot;errors&quot;: {}
 }</code>
  </pre>

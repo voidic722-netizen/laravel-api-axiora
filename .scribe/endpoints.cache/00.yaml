@@ -126,8 +126,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: '{"success":true,"message":"","data":{"id":1,"name":"Admin","email":"admin@kiluah.test","image":null,"role":1,"position":null,"nidn":null,"nim":null,"subject_id":null,"department_id":null,"faculty_id":null,"classroom_id":null,"subject":null,"department":null,"faculty":null,"classroom":null,"created_at":"2026-06-13T07:07:20.000000Z","updated_at":"2026-06-13T07:07:20.000000Z"}}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -229,11 +229,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -454,14 +451,14 @@ endpoints:
         name: user
         description: 'The user.'
         required: true
-        example: 1
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      user: 1
+      user: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -503,7 +500,7 @@ endpoints:
         name: role
         description: ''
         required: true
-        example: 3
+        example: 1
         type: string
         enumValues:
           - 1
@@ -604,7 +601,7 @@ endpoints:
       name: b
       email: zbailey@example.net
       password: '-0pBNvYgxw'
-      role: 3
+      role: 1
       position: architecto
       nidn: architecto
       nim: architecto
@@ -648,14 +645,14 @@ endpoints:
         name: user
         description: 'The user.'
         required: true
-        example: 1
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      user: 1
+      user: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -699,11 +696,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -746,11 +740,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -789,14 +780,14 @@ endpoints:
         name: faculty
         description: 'The faculty.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      faculty: 16
+      faculty: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -805,11 +796,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -919,14 +907,14 @@ endpoints:
         name: faculty
         description: 'The faculty.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      faculty: 16
+      faculty: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1002,14 +990,14 @@ endpoints:
         name: faculty
         description: 'The faculty.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      faculty: 16
+      faculty: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1053,11 +1041,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1096,14 +1081,14 @@ endpoints:
         name: department
         description: 'The department.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      department: 16
+      department: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1112,11 +1097,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1238,14 +1220,14 @@ endpoints:
         name: department
         description: 'The department.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      department: 16
+      department: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1333,14 +1315,14 @@ endpoints:
         name: department
         description: 'The department.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      department: 16
+      department: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1384,8 +1366,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: '{"success":true,"message":"","data":[]}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1450,7 +1432,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:29'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1461,7 +1443,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after or equal to <code>start_date</code>.'
         required: true
-        example: '2052-07-08'
+        example: '2052-07-09'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1470,8 +1452,8 @@ endpoints:
     cleanBodyParameters:
       name: b
       academic_year: 'n'
-      start_date: '2026-06-15T09:35:52'
-      end_date: '2052-07-08'
+      start_date: '2026-06-16T04:20:29'
+      end_date: '2052-07-09'
     fileParameters: []
     responses: []
     responseFields: []
@@ -1507,14 +1489,14 @@ endpoints:
         name: semester
         description: 'The semester.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      semester: 16
+      semester: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1545,7 +1527,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:29'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1556,7 +1538,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after or equal to <code>start_date</code>.'
         required: true
-        example: '2052-07-08'
+        example: '2052-07-09'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1565,8 +1547,8 @@ endpoints:
     cleanBodyParameters:
       name: b
       academic_year: 'n'
-      start_date: '2026-06-15T09:35:52'
-      end_date: '2052-07-08'
+      start_date: '2026-06-16T04:20:29'
+      end_date: '2052-07-09'
     fileParameters: []
     responses: []
     responseFields: []
@@ -1602,14 +1584,14 @@ endpoints:
         name: semester
         description: 'The semester.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      semester: 16
+      semester: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1653,11 +1635,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1696,14 +1675,14 @@ endpoints:
         name: subject
         description: 'The subject.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      subject: 16
+      subject: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1712,11 +1691,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -1852,14 +1828,14 @@ endpoints:
         name: subject
         description: 'The subject.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      subject: 16
+      subject: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1879,7 +1855,7 @@ endpoints:
         name: type
         description: ''
         required: true
-        example: general
+        example: compulsory
         type: string
         enumValues:
           - general
@@ -1922,7 +1898,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       name: b
-      type: general
+      type: compulsory
       department_id: 16
       description: 'Eius et animi quos velit et.'
     fileParameters:
@@ -1961,14 +1937,14 @@ endpoints:
         name: subject
         description: 'The subject.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      subject: 16
+      subject: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2014,8 +1990,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: '{"success":true,"message":"","data":[]}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -2054,14 +2030,14 @@ endpoints:
         name: classroom
         description: 'The classroom.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      classroom: 16
+      classroom: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2070,8 +2046,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 404
-        content: '{"success":false,"message":"Classroom not found","errors":{}}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -2197,8 +2173,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 200
-        content: '{"success":true,"message":"","data":[]}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -2241,7 +2217,7 @@ endpoints:
         name: date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2270,7 +2246,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      date: '2026-06-15T09:35:52'
+      date: '2026-06-16T04:20:31'
       classroom_id: 16
       topic: architecto
     fileParameters: []
@@ -2308,14 +2284,14 @@ endpoints:
         name: schedule
         description: 'The schedule.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      schedule: 16
+      schedule: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2324,7 +2300,7 @@ endpoints:
         name: date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:31'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2353,7 +2329,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      date: '2026-06-15T09:35:52'
+      date: '2026-06-16T04:20:31'
       classroom_id: 16
       topic: architecto
     fileParameters: []
@@ -2391,14 +2367,14 @@ endpoints:
         name: schedule
         description: 'The schedule.'
         required: true
-        example: 16
-        type: integer
+        example: architecto
+        type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      schedule: 16
+      schedule: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2442,11 +2418,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -2501,11 +2474,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -2593,7 +2563,7 @@ endpoints:
         name: due_date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:32'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2639,7 +2609,7 @@ endpoints:
       task_types: []
       classroom_ids:
         - 16
-      due_date: '2026-06-15T09:35:52'
+      due_date: '2026-06-16T04:20:32'
       max_file_size: 22
       subject_id: 16
     fileParameters:
@@ -2740,7 +2710,7 @@ endpoints:
         name: due_date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:32'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2786,7 +2756,7 @@ endpoints:
       task_types: []
       classroom_ids:
         - 16
-      due_date: '2026-06-15T09:35:52'
+      due_date: '2026-06-16T04:20:32'
       max_file_size: 22
       subject_id: 16
     fileParameters:
@@ -2936,11 +2906,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -3127,8 +3094,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 403
-        content: '{"success":false,"message":"Forbidden","errors":{}}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -3171,11 +3138,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -3230,11 +3194,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -3322,7 +3283,7 @@ endpoints:
         name: available_at
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:34'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3333,7 +3294,7 @@ endpoints:
         name: deadline_at
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:34'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3390,8 +3351,8 @@ endpoints:
       exam_categories: []
       classroom_ids:
         - 16
-      available_at: '2026-06-15T09:35:52'
-      deadline_at: '2026-06-15T09:35:52'
+      available_at: '2026-06-16T04:20:34'
+      deadline_at: '2026-06-16T04:20:34'
       duration_minutes: 22
       questions:
         -
@@ -3493,7 +3454,7 @@ endpoints:
         name: available_at
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:34'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3504,7 +3465,7 @@ endpoints:
         name: deadline_at
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-15T09:35:52'
+        example: '2026-06-16T04:20:34'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3561,8 +3522,8 @@ endpoints:
       exam_categories: []
       classroom_ids:
         - 16
-      available_at: '2026-06-15T09:35:52'
-      deadline_at: '2026-06-15T09:35:52'
+      available_at: '2026-06-16T04:20:34'
+      deadline_at: '2026-06-16T04:20:34'
       duration_minutes: 22
       questions:
         -
@@ -3666,11 +3627,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: |-
-          {
-              "message": "Server Error"
-          }
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -3784,8 +3742,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 403
-        content: '{"success":false,"message":"Forbidden","errors":{}}'
+        status: 401
+        content: '{"success":false,"message":"Unauthenticated","errors":{}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
