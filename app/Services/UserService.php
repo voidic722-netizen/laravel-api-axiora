@@ -27,6 +27,15 @@ class UserService
         return $this->userRepository->all($role);
     }
 
+    public function detail(int $id): User
+    {
+        $user = $this->userRepository->find($id);
+        if (!$user) {
+            throw new ApiException('User not found', 404);
+        }
+        return $user;
+    }
+
     /**
      * Source: user_repository.js — createUser
      */

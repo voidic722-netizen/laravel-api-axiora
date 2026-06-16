@@ -32,6 +32,14 @@ class UserController extends Controller
     }
 
     /**
+     * GET /api/users/{user}
+     */
+    public function show(int $user): JsonResponse
+    {
+        return $this->success(UserResource::make($this->userService->detail($user)));
+    }
+
+    /**
      * POST /api/users
      */
     public function store(CreateUserRequest $request): JsonResponse
