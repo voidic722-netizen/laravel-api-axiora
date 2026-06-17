@@ -245,3 +245,29 @@ Untuk pagination, ditambahkan key `meta`:
   }
 }
 ```
+
+# Default Login Accounts
+
+Admin
+
+* admin@axiora.com / password123
+
+Dosen
+
+* teacher@axiora.com / password
+
+Ketua Program Studi
+
+* teacher2@axiora.com / password
+
+Dekan
+
+* teacher3@axiora.com / password
+
+Mahasiswa
+
+* student@axiora.com / password
+* student2@axiora.com / password
+* student3@axiora.com / password
+* student4@axiora.com / password
+* student5@axiora.com / password
