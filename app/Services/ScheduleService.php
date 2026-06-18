@@ -15,25 +15,27 @@ class ScheduleService
     ) {
     }
 
-    /**
-     * Source: jadwal_repository.js — getJadwalList
-     */
     public function list(User $user): Collection
     {
         return $this->scheduleRepository->all($user);
     }
 
-    /**
-     * Source: jadwal_repository.js — createJadwal
-     */
+    public function findById(int $id): Schedule
+    {
+        $schedule = $this->scheduleRepository->find($id);
+
+        if (!$schedule) {
+            throw new ApiException('Schedule not found', 404);
+        }
+
+        return $schedule;
+    }
+
     public function create(array $data): Schedule
     {
         return $this->scheduleRepository->create($data);
     }
 
-    /**
-     * Source: jadwal_repository.js — updateJadwal
-     */
     public function update(int $id, array $data): Schedule
     {
         $schedule = $this->scheduleRepository->find($id);
@@ -45,9 +47,6 @@ class ScheduleService
         return $this->scheduleRepository->update($schedule, $data);
     }
 
-    /**
-     * Source: jadwal_repository.js — deleteJadwal
-     */
     public function delete(int $id): void
     {
         $schedule = $this->scheduleRepository->find($id);

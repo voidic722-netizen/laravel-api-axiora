@@ -18,9 +18,6 @@ class ScheduleController extends Controller
     ) {
     }
 
-    /**
-     * GET /api/schedules
-     */
     public function index(Request $request): JsonResponse
     {
         return $this->success(
@@ -28,9 +25,13 @@ class ScheduleController extends Controller
         );
     }
 
-    /**
-     * POST /api/schedules
-     */
+    public function show(int $schedule): JsonResponse
+    {
+        $found = $this->scheduleService->findById($schedule);
+
+        return $this->success(ScheduleResource::make($found));
+    }
+
     public function store(StoreScheduleRequest $request): JsonResponse
     {
         $schedule = $this->scheduleService->create($request->validated());
@@ -38,9 +39,6 @@ class ScheduleController extends Controller
         return $this->success(ScheduleResource::make($schedule), 'Schedule created', 201);
     }
 
-    /**
-     * PUT /api/schedules/{schedule}
-     */
     public function update(StoreScheduleRequest $request, int $schedule): JsonResponse
     {
         $updated = $this->scheduleService->update($schedule, $request->validated());
@@ -48,9 +46,6 @@ class ScheduleController extends Controller
         return $this->success(ScheduleResource::make($updated), 'Schedule updated');
     }
 
-    /**
-     * DELETE /api/schedules/{schedule}
-     */
     public function destroy(int $schedule): JsonResponse
     {
         $this->scheduleService->delete($schedule);

@@ -15,32 +15,14 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Public routes
-|--------------------------------------------------------------------------
-*/
-
 Route::post('/auth/login', [AuthController::class, 'login']);
-
-/*
-|--------------------------------------------------------------------------
-| Authenticated routes (Sanctum Bearer token)
-|--------------------------------------------------------------------------
-*/
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    // ---------------------------------------------------------------
-    // Auth
-    // ---------------------------------------------------------------
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::patch('/auth/profile', [AuthController::class, 'updateProfile']);
 
-    // ---------------------------------------------------------------
-    // Users
-    // ---------------------------------------------------------------
     Route::middleware('role:admin,lecturer')->group(function () {
         Route::get('/users', [UserController::class, 'index']);
         Route::get('/users/{user}', [UserController::class, 'show']);
@@ -52,11 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/users/{user}', [UserController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Faculties
-    // ---------------------------------------------------------------
     Route::middleware('role:admin,lecturer')->group(function () {
-        // Must be registered before /faculties/{faculty}
         Route::get('/faculties/available-for-dean', [FacultyController::class, 'availableForDean']);
         Route::get('/faculties', [FacultyController::class, 'index']);
         Route::get('/faculties/{faculty}', [FacultyController::class, 'show']);
@@ -68,9 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/faculties/{faculty}', [FacultyController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Departments
-    // ---------------------------------------------------------------
     Route::middleware('role:admin,lecturer')->group(function () {
         Route::get('/departments', [DepartmentController::class, 'index']);
         Route::get('/departments/{department}', [DepartmentController::class, 'show']);
@@ -82,9 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/departments/{department}', [DepartmentController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Semesters
-    // ---------------------------------------------------------------
     Route::get('/semesters', [SemesterController::class, 'index']);
 
     Route::middleware('role:admin')->group(function () {
@@ -93,9 +65,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/semesters/{semester}', [SemesterController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Subjects
-    // ---------------------------------------------------------------
     Route::get('/subjects', [SubjectController::class, 'index']);
     Route::get('/subjects/{subject}', [SubjectController::class, 'show']);
 
@@ -105,9 +74,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Classrooms
-    // ---------------------------------------------------------------
     Route::get('/classrooms', [ClassroomController::class, 'index']);
     Route::get('/classrooms/{classroom}', [ClassroomController::class, 'show']);
 
@@ -117,10 +83,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/classrooms/{classroom}', [ClassroomController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Schedules
-    // ---------------------------------------------------------------
     Route::get('/schedules', [ScheduleController::class, 'index']);
+    Route::get('/schedules/{schedule}', [ScheduleController::class, 'show']);
 
     Route::middleware('role:admin,lecturer')->group(function () {
         Route::post('/schedules', [ScheduleController::class, 'store']);
@@ -128,9 +92,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/schedules/{schedule}', [ScheduleController::class, 'destroy']);
     });
 
-    // ---------------------------------------------------------------
-    // Assignments
-    // ---------------------------------------------------------------
     Route::get('/assignments', [AssignmentController::class, 'index']);
     Route::get('/assignments/{assignment}', [AssignmentController::class, 'show']);
 
@@ -148,9 +109,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/assignments/{assignment}/my-submission', [AssignmentSubmissionController::class, 'mySubmission']);
     });
 
-    // ---------------------------------------------------------------
-    // Exams
-    // ---------------------------------------------------------------
     Route::get('/exams', [ExamController::class, 'index']);
     Route::get('/exams/{exam}', [ExamController::class, 'show']);
 
