@@ -43,14 +43,25 @@ class AssignmentController extends Controller
      * POST /api/assignments
      */
     public function store(StoreAssignmentRequest $request): JsonResponse
-    {
-        $assignment = $this->assignmentService->create(
-            $request->validated(),
-            $request->file('modules', [])
-        );
+{
+    \Log::debug('Raw modules before validation', [
+        'has_modules' => $request->hasFile('modules'),
+        'files_raw'   => array_map(function ($f) {
+            return [
+                'name'    => $f->getClientOriginalName(),
+                'error'   => $f->getError(),
+                'is_valid' => $f->isValid(),
+            ];
+        }, $request->file('modules', [])),
+    ]);
 
-        return $this->success(AssignmentResource::make($assignment), 'Assignment created', 201);
-    }
+    $assignment = $this->assignmentService->create(
+        $request->validated(),
+        $request->file('modules', [])
+    );
+
+    return $this->success(AssignmentResource::make($assignment), 'Assignment created', 201);
+}
 
     /**
      * PUT /api/assignments/{assignment}

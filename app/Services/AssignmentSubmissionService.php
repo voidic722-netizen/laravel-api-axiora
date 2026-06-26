@@ -148,12 +148,12 @@ class AssignmentSubmissionService
     /**
      * Source: tugas_pengumpulan_repository.js — getSubmissionsByTugas
      *
-     * @return Collection<int, array{
+     * @return \Illuminate\Support\Collection<int, array{
      *     student_id: int, student_name: string, classroom_id: ?int, classroom_name: string,
      *     is_submitted: bool, submission: ?AssignmentSubmission
      * }>
      */
-    public function submissionsForAssignment(int $assignmentId, User $user): Collection
+    public function submissionsForAssignment(int $assignmentId, User $user): \Illuminate\Support\Collection
     {
         if (!in_array($user->role, [RoleEnum::ADMIN, RoleEnum::LECTURER], true)) {
             throw new ApiException('Forbidden', 403);

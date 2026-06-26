@@ -16,8 +16,7 @@ class UserService
     public function __construct(
         protected UserRepositoryInterface $userRepository,
         protected CloudinaryService $cloudinaryService,
-    ) {
-    }
+    ) {}
 
     /**
      * Source: user_repository.js — getUsers
@@ -30,9 +29,10 @@ class UserService
     public function detail(int $id): User
     {
         $user = $this->userRepository->find($id);
-        if (!$user) {
+        if (! $user) {
             throw new ApiException('User not found', 404);
         }
+
         return $user;
     }
 
@@ -69,7 +69,7 @@ class UserService
 
         $user = $this->userRepository->find($id);
 
-        if (!$user) {
+        if (! $user) {
             throw new ApiException('User not found', 404);
         }
 
@@ -85,7 +85,7 @@ class UserService
             $data['image'] = $this->cloudinaryService->uploadImage($image, 'users');
         }
 
-        if (!empty($data['password'])) {
+        if (! empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {
             unset($data['password']);
@@ -105,7 +105,7 @@ class UserService
 
         $user = $this->userRepository->find($id);
 
-        if (!$user) {
+        if (! $user) {
             throw new ApiException('User not found', 404);
         }
 
@@ -114,6 +114,9 @@ class UserService
         if ($first && $first->id === $id) {
             throw new ApiException('Cannot delete the first registered user', 403);
         }
+
+        // Revoke all Sanctum tokens so the deleted user is immediately logged out
+        $user->tokens()->delete();
 
         $this->userRepository->delete($user);
     }

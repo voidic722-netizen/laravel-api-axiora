@@ -4,6 +4,7 @@ namespace App\Http\Requests\Assignment;
 
 use App\Http\Requests\Concerns\DecodesJsonFields;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateAssignmentRequest extends FormRequest
 {
@@ -19,6 +20,17 @@ class UpdateAssignmentRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
+        Log::debug('Modules raw at prepareForValidation', [
+            'files' => array_map(function ($f) {
+                return [
+                    'name'     => $f->getClientOriginalName(),
+                    'error'    => $f->getError(),
+                    'is_valid' => $f->isValid(),
+                    'size'     => $f->getSize(),
+                ];
+            }, $this->file('modules', [])),
+        ]);
+
         $this->decodeJsonFields(['task_types', 'classroom_ids']);
     }
 

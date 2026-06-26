@@ -94,12 +94,12 @@ class ExamSubmissionService
     /**
      * Source: ujian_repository.js — getSubmissions
      *
-     * @return Collection<int, array{
+     * @return \Illuminate\Support\Collection<int, array{
      *     student_id: int, student_name: string, student_nim: ?string, student_email: string,
      *     classroom_id: ?int, classroom_name: ?string, is_submitted: bool, submission: ?ExamSubmission
      * }>
      */
-    public function submissions(int $examId, User $user): Collection
+    public function submissions(int $examId, User $user): \Illuminate\Support\Collection
     {
         if (!in_array($user->role, [RoleEnum::ADMIN, RoleEnum::LECTURER], true)) {
             throw new ApiException('Forbidden', 403);

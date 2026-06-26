@@ -2,74 +2,82 @@
 
 namespace App\Services;
 
-use Cloudinary\Cloudinary;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
- * Centralizes all file uploads to Cloudinary.
- * Replaces local filesystem storage from upload_helper.js (Issue #01, #02, #03).
+ * Centralizes all file uploads to local storage (public disk).
  *
- * Uses the official cloudinary/cloudinary_php SDK directly (framework-agnostic),
- * since cloudinary-labs/cloudinary-laravel does not yet support Laravel 13.
+ * NOTE: Class name and method signatures are intentionally kept identical
+ * to the original Cloudinary-based implementation so that no consumer
+ * (AssignmentService, AssignmentSubmissionService, UserService,
+ * DepartmentService, ExamService, FacultyService, SubjectService)
+ * needs to be modified. Only the internal storage mechanism changed.
+ *
+ * Files are stored under storage/app/public/axiora-lms/{folder}/ and
+ * served via the public disk symlink (php artisan storage:link).
  */
 class CloudinaryService
 {
-    protected ?Cloudinary $cloudinary = null;
-
     /**
-     * Lazily instantiate the Cloudinary SDK client.
-     * Avoids crashing endpoints that don't perform uploads (e.g. GET /faculties)
-     * when CLOUDINARY_URL is missing/invalid, since Laravel eagerly resolves
-     * all constructor dependencies of any Service that injects this class.
-     */
-    protected function client(): Cloudinary
-    {
-        return $this->cloudinary ??= new Cloudinary(env('CLOUDINARY_URL'));
-    }
-
-    /**
-     * Upload an image and return its secure URL.
+     * Upload an image and return its public URL.
      * Source: upload_helper.js — uploadImage
      */
     public function uploadImage(UploadedFile $file, string $folder): string
     {
-        $result = $this->client()->uploadApi()->upload($file->getRealPath(), [
-            'folder'        => "axiora-lms/{$folder}",
-            'resource_type' => 'image',
-        ]);
+        $path = $this->storeFile($file, $folder);
 
-        return $result['secure_url'];
+        return Storage::disk('public')->url($path);
     }
 
     /**
      * Upload a document/raw file (assignment submissions, modules).
-     * Returns both the secure URL and the public_id (needed for later deletion).
+     * Returns both the public URL and the relative path (used as "public_id"
+     * for later deletion, mirroring the original Cloudinary contract).
      * Source: tugas_pengumpulan_repository.js — uploadSubmissionFile / tugas_repository.js — uploadModul
      *
      * @return array{url: string, public_id: string}
      */
     public function uploadRaw(UploadedFile $file, string $folder): array
     {
-        $result = $this->client()->uploadApi()->upload($file->getRealPath(), [
-            'folder'          => "axiora-lms/{$folder}",
-            'resource_type'   => 'raw',
-            'use_filename'    => true,
-            'unique_filename' => true,
-        ]);
+        $path = $this->storeFile($file, $folder);
 
         return [
-            'url'       => $result['secure_url'],
-            'public_id' => $result['public_id'],
+            'url'       => Storage::disk('public')->url($path),
+            'public_id' => $path,
         ];
     }
 
     /**
-     * Delete a previously uploaded file by its Cloudinary public_id.
+     * Delete a previously uploaded file by its stored relative path.
+     * $resourceType is kept for backward signature compatibility but is
+     * unused for local storage (no distinction needed between image/raw).
      * Source: tugas_pengumpulan_repository.js — fs.unlinkSync(oldPath) on resubmission
      *         tugas_repository.js — deleteTugasModul
      */
     public function destroy(string $publicId, string $resourceType = 'raw'): void
     {
-        $this->client()->uploadApi()->destroy($publicId, ['resource_type' => $resourceType]);
+        $storageUrl = Storage::disk('public')->url('');
+        
+        if (str_starts_with($publicId, $storageUrl)) {
+            $publicId = substr($publicId, strlen($storageUrl));
+        }
+
+        if (Storage::disk('public')->exists($publicId)) {
+            Storage::disk('public')->delete($publicId);
+        }
+    }
+
+    /**
+     * Store the uploaded file under axiora-lms/{folder} on the public disk
+     * with a unique generated filename (mirrors Cloudinary's
+     * unique_filename behavior).
+     */
+    protected function storeFile(UploadedFile $file, string $folder): string
+    {
+        $filename = Str::uuid()->toString() . '.' . $file->getClientOriginalExtension();
+
+        return $file->storeAs("axiora-lms/{$folder}", $filename, 'public');
     }
 }

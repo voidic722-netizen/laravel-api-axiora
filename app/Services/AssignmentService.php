@@ -133,27 +133,37 @@ class AssignmentService
      * @param UploadedFile[] $modules
      */
     protected function attachModules(Assignment $assignment, array $modules): void
-    {
-        foreach ($modules as $file) {
-            if (!in_array($file->getMimeType(), self::ALLOWED_MODULE_MIME_TYPES, true)) {
-                throw new ApiException('Unsupported file format', 422);
-            }
+{
+    foreach ($modules as $file) {
+        \Log::debug('Module upload debug', [
+            'original_name' => $file->getClientOriginalName(),
+            'is_valid'       => $file->isValid(),
+            'error_code'     => $file->getError(),
+            'error_message'  => $file->getErrorMessage(),
+            'size'           => $file->getSize(),
+            'mime'           => $file->getMimeType(),
+            'path_exists'    => file_exists($file->getRealPath()),
+        ]);
 
-            if ($file->getSize() > self::MAX_MODULE_SIZE_BYTES) {
-                throw new ApiException('Maximum file size is 10MB', 422);
-            }
-
-            $uploaded = $this->cloudinaryService->uploadRaw($file, 'assignment-modules');
-
-            $this->assignmentRepository->createModule($assignment->id, [
-                'name'                  => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
-                'file_path'             => $uploaded['url'],
-                'cloudinary_public_id'  => $uploaded['public_id'],
-                'format'                => $file->getClientOriginalExtension(),
-                'file_size'             => $this->formatFileSize($file->getSize()),
-            ]);
+        if (!in_array($file->getMimeType(), self::ALLOWED_MODULE_MIME_TYPES, true)) {
+            throw new ApiException('Unsupported file format', 422);
         }
+
+        if ($file->getSize() > self::MAX_MODULE_SIZE_BYTES) {
+            throw new ApiException('Maximum file size is 10MB', 422);
+        }
+
+        $uploaded = $this->cloudinaryService->uploadRaw($file, 'assignment-modules');
+
+        $this->assignmentRepository->createModule($assignment->id, [
+            'name'                  => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+            'file_path'             => $uploaded['url'],
+            'cloudinary_public_id'  => $uploaded['public_id'],
+            'format'                => $file->getClientOriginalExtension(),
+            'file_size'             => $this->formatFileSize($file->getSize()),
+        ]);
     }
+}
 
     /**
      * Source: tugas_repository.js — formatFileSize
