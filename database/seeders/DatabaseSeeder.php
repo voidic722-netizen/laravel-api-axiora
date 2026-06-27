@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AssignmentSubmissionSeeder::class,
             ExamSeeder::class,
             ExamSubmissionSeeder::class,
+            MassiveDataSeeder::class,
         ]);
     }
 }
